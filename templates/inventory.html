@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block title %}
+Inventory
+{% endblock title %}
+
+{% block content %}
+
+<style>
+    thead.tr {
+        cursor: pointer;
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-md-12 text-center my-3">
+        <h1>Inventorys</h1>
+    </div>
+    <div class="col-md-12 my-3">
+        <div class="d-flex">
+            <input id="search_query" class="form-control form-control-lg" type="text"
+                placeholder="Search By Inventory Name">
+            <button onclick="search_on_inventory()" class="btn btn-outline-info">Search</button>
+        </div>
+    </div>
+    <table class="table table-hover table-striped my-3">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Supplier</th>
+                <th scope="col">Availability</th>
+            </tr>
+        </thead>
+        <tbody id="t_body">
+        </tbody>
+    </table>
+</div>
+
+
+
+<script>
+
+    window.onload = function () {
+
+        fetch('/api/inventory')
+            .then(response => {
+                if (response.status == 200) {
+                    return response.json();
+                }
+                else if (response.status == 404) {
+                    alert('No Inventory Found');
+                }
+                else if(response.status == 500) {
+                    alert('Internal Server Error');
+                }
+
+            })
+            .then(data => {
+                
+                data.forEach(element => {
+                    var tr = document.createElement('tr');
+                    var td1 = document.createElement('td');
+                    var td2 = document.createElement('td');
+                    var td3 = document.createElement('td');
+                    tr.onclick = function () {
+                        window.location.href = '/inventory/' + element.id;
+                    };
+                    tr.style.cursor = 'pointer';
+                    td1.innerHTML = element.name;
+                    td2.innerHTML = element.supplier.name;
+                    td3.innerHTML = element.availability ? 'Available' : 'Not Available';
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+                    document.getElementById('t_body').appendChild(tr);
+                });
+            })
+            .catch(error => alert(String(error)));
+    }
+
+    let search_query = document.getElementById('search_query');
+    const search_on_inventory = (e) => {
+        // let query = e.target.value;
+        let query = search_query.value;
+        fetch('/api/inventory?name=' + query)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('t_body').innerHTML = '';
+                data.forEach(element => {
+                    var tr = document.createElement('tr');
+                    var td1 = document.createElement('td');
+                    var td2 = document.createElement('td');
+                    var td3 = document.createElement('td');
+                    td1.innerHTML = element.name;
+                    td2.innerHTML = element.supplier.name;
+                    td3.innerHTML = element.availability ? 'Available' : 'Not Available';
+                    tr.onclick = function () {
+                        window.location.href = '/api/inventory/' + element.id;
+                    };
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+                    document.getElementById('t_body').appendChild(tr);
+                });
+
+            })
+            .catch(error => alert(String(error)));
+    }
+
+
+</script>
+
+
+
+{% endblock content %}

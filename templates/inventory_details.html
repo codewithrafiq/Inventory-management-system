@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+ {% block title %} 
+Inventory - {{inventory.name}} 
+{%endblock title%} {% block content %}
+
+<div class="row justify-content-center my-3">
+  <div class="col-md-8 ">
+    <div class="card">
+        <img class="card-img-top" src="{% static '/img/inventory-logo.jpg' %}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{inventory.name}}</h5>
+          <p class="card-text">{{inventory.description}}</p>
+          <p class="card-text"><b>Note: </b>{{inventory.note}}</p>
+            <p class="card-text"><b>Stock: </b>{{inventory.stock}}</p>
+            {% if inventory.availability %}
+                <p class="btn btn-info">Available</p>
+                {% else %}
+                <p class="btn btn-danger">Not Available</p>
+            {% endif %}
+        </div>
+      </div>
+  </div>
+</div>
+
+{% endblock content %}
