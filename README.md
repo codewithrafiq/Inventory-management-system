@@ -25,6 +25,8 @@
 #### Install Requerments
 `pip install -r requirements.txt`
 
+#### Run server
+`python manage.py runserver`
 
 ### Project running on 'http://0.0.0.0:8000'
 
