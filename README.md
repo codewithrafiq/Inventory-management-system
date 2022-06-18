@@ -31,19 +31,12 @@
 ###  Go admin panel
 
 #### Log in with an existing user
-
 ```
 username = admin
 password = admin1234
 ```
-
 #### Create a new Superuser
 `python manage.py createsuperuser`
-
-
-
-
-
 
 ## Demo Video of Working Project 
 ### - Demo video: [Drive Link](https://drive.google.com/file/d/1gGyaJIa47_V_O2I5h_YYH0prhEUJ8Y2U/view?usp=sharing)
