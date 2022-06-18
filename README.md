@@ -1,7 +1,6 @@
 # Inventory management system
 
 
-## [See this Project on Live]()
 
 ## Used technologies
 - Python 3.10
