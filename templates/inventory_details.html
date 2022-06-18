@@ -13,6 +13,7 @@ Inventory - {{inventory.name}}
           <p class="card-text">{{inventory.description}}</p>
           <p class="card-text"><b>Note: </b>{{inventory.note}}</p>
             <p class="card-text"><b>Stock: </b>{{inventory.stock}}</p>
+          <p class="card-text"><b>supplier: </b>{{inventory.supplier.name }}</p>
             {% if inventory.availability %}
                 <p class="btn btn-info">Available</p>
                 {% else %}
